@@ -1,10 +1,10 @@
-import React, { Fragment, useState,useContext } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import proyectoContext from '../../context/proyectos/proyectoContext';
 const NuevoProyecto = () => {
 
   //Obtener el state del formulario
-  const proyectosContext=useContext(proyectoContext);
-  const {formulario,mostrarFormulario,agregarProyecto,errorformulario,mostrarError}=proyectosContext;
+  const proyectosContext = useContext(proyectoContext);
+  const { formulario, mostrarFormulario, agregarProyecto, errorformulario, mostrarError } = proyectosContext;
   //State para proyecto
   const [proyecto, guardarProyecto] = useState({
     nombre: "",
@@ -22,53 +22,54 @@ const NuevoProyecto = () => {
   const onSubmitProyecto = (e) => {
     e.preventDefault();
     //Validar el proyecto
-    if(nombre===''){
+    if (nombre === '') {
       mostrarError();
       return;
     }
+    console.log(proyecto);
     //agregar al state
-     agregarProyecto(proyecto);
+    agregarProyecto(proyecto);
+
     //Reinicar el form
     guardarProyecto({
-      nombre:''
+      nombre: ''
     })
 
-   
   };
-   //Mostrar el formulario
-   const onClickFormulario=()=>{
+  //Mostrar el formulario
+  const onClickFormulario = () => {
     mostrarFormulario();
   }
   return (
     <Fragment>
       <button type="button" className="btn btn-block btn-primario"
-      onClick={onClickFormulario}
+        onClick={onClickFormulario}
       >
         Nuevo Proyecto
       </button>
-        {
-          formulario?
+      {
+        formulario ?
           (
             <form className="formulario-nuevo-proyecto" onSubmit={onSubmitProyecto}>
-            <input
-              type="text"
-              className="input-text"
-              placeholder="Nombre Proyecto"
-              name="nombre"
-              value={nombre}
-              onChange={onChangeProyecto}
-            />
-            <input
-              type="submit"
-              className="btn btn-primario btn-block"
-              value="Agregar Proyecto"
-            />
-          </form>
+              <input
+                type="text"
+                className="input-text"
+                placeholder="Nombre Proyecto"
+                name="nombre"
+                value={nombre}
+                onChange={onChangeProyecto}
+              />
+              <input
+                type="submit"
+                className="btn btn-primario btn-block"
+                value="Agregar Proyecto"
+              />
+            </form>
           )
           :
           null
-        }
-        {errorformulario?<p className="mensaje error">El nombre del Proyecto es obligatorio</p>:null}
+      }
+      {errorformulario ? <p className="mensaje error">El nombre del Proyecto es obligatorio</p> : null}
     </Fragment>
   );
 };
